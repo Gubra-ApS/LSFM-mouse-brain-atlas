@@ -1,0 +1,74 @@
+//Registration parameter file
+//Affine Transformation - Used for the LSFM atlas template creation and for aligning the LSFM atlas to individual c-Fos labeled brains
+//June 2019
+
+
+// *************** ImageTypes ***************
+(FixedInternalImagePixelType "float")
+(FixedImageDimension 3)
+(MovingInternalImagePixelType "float")
+(MovingImageDimension 3)
+
+// *************** Main components *************** 
+(Registration "MultiResolutionRegistration")
+(FixedImagePyramid "FixedRecursiveImagePyramid")
+(MovingImagePyramid "MovingRecursiveImagePyramid")
+(Interpolator "BSplineInterpolator")
+(Metric "AdvancedMattesMutualInformation")
+(Optimizer "AdaptiveStochasticGradientDescent")
+(ResampleInterpolator "FinalBSplineInterpolator")
+(Resampler "DefaultResampler")
+(Transform "AffineTransform")
+(ErodeMask "false" )
+
+// *************** Multiresolution *************** 
+(NumberOfResolutions 4)
+(ImagePyramidSchedule 8 8 8  4 4 4  2 2 2  1 1 1 )
+
+// *************** Transformation *************** 
+(FinalGridSpacingInVoxels 25 25 25)
+(GridSpacingSchedule 4 4 4 3 3 3 2 2 2 1 1 1)
+(HowToCombineTransforms "Compose")
+(AutomaticTransformInitialization "true")
+(AutomaticScalesEstimation "true")
+(WriteTransformParametersEachIteration "false")
+(WriteResultImage "true")
+(CompressResultImage "true")
+(WriteResultImageAfterEachResolution "false")
+(ShowExactMetricValue "false")
+
+// *************** Optimizer *************** 
+//Maximum number of iterations in each resolution level:
+(MaximumNumberOfIterations 1000 )
+
+// *************** Similarity measure *************** 
+(NumberOfHistogramBins 32 )
+(FixedLimitRangeRatio 0.0)
+(MovingLimitRangeRatio 0.0)
+(FixedKernelBSplineOrder 3)
+(MovingKernelBSplineOrder 3)
+(UseFastAndLowMemoryVersion "true")
+
+// *************** Image sampling *************** 
+//Number of spatial samples used to compute the mutual information in each iteration:
+(ImageSampler "RandomCoordinate")
+(FixedImageBSplineInterpolationOrder 1 )
+(UseRandomSampleRegion "true")
+(SampleRegionSize 50.0 50.0 50.0)
+(NumberOfSpatialSamples 10000 )
+(NewSamplesEveryIteration "true")
+(CheckNumberOfSamples "true")
+(MaximumNumberOfSamplingAttempts 10)
+
+// *************** Interpolation and resampling *************** 
+//Order of B-Spline interpolation used in each resolution level:
+(BSplineInterpolationOrder 3)
+//Order of B-Spline interpolation used for applying the final deformation:
+(FinalBSplineInterpolationOrder 3)
+//Default pixel value for pixels that come from outside the picture:
+(DefaultPixelValue 0)
+
+//  *************** Saving  *************** 
+// The pixel type and format of the resulting deformed moving image
+(ResultImagePixelType "float")
+(ResultImageFormat "nii.gz")
