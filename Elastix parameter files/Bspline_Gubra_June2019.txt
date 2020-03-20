@@ -1,0 +1,94 @@
+//Registration parameter file
+//Bspline Transformation - Used for the LSFM atlas template creation and for aligning the LSFM atlas to individual c-Fos labeled brains
+//June 2019
+
+// *************** ImageTypes ***************
+(FixedInternalImagePixelType "float")
+(FixedImageDimension 3)
+(MovingInternalImagePixelType "float")
+(MovingImageDimension 3)
+
+// *************** Main components *************** 
+(Registration "MultiResolutionRegistration")
+(FixedImagePyramid "FixedRecursiveImagePyramid")
+(MovingImagePyramid "MovingRecursiveImagePyramid")
+(Interpolator "BSplineInterpolator")
+(Metric "AdvancedMattesMutualInformation")
+(Optimizer "StandardGradientDescent")
+(ResampleInterpolator "FinalBSplineInterpolator")
+(Resampler "DefaultResampler")
+(Transform "RecursiveBSplineTransform")
+(ErodeMask "false" )
+
+// *************** Multiresolution *************** 
+// For mapping LSFM atlas to c-Fos labeled brains: uncomment 2 following lines
+(NumberOfResolutions 4)
+(ImagePyramidSchedule 8 8 8  4 4 4  2 2 2  1 1 1 )
+
+// For creating an atlas template by averaging aligned brain samples at lower resolution level and using this average as reference image for alignment at the higher resolution level: uncomment suitable following lines depending on the resolution level
+//(NumberOfResolutions 1)
+//(ImagePyramidSchedule 8 8 8) // Uncomment for creating an atlas template (lowest resolution level)
+//(ImagePyramidSchedule 4 4 4) // Uncomment for creating an atlas template (2nd lowest resolution level)
+//(ImagePyramidSchedule 2 2 2) // Uncomment for creating an atlas template (middle resolution level)
+//(ImagePyramidSchedule 1.5 1.5 1.5) // Uncomment for creating an atlas template (2nd highest resolution level)
+//(ImagePyramidSchedule 1 1 1) // Uncomment for creating an atlas template (1st highest resolution level)
+
+// *************** Transformation *************** 
+(FinalGridSpacingInVoxels 25 25 25) 
+(GridSpacingSchedule 4 4 4 3 3 3 2 2 2 1 1 1) // Uncomment for mapping LSFM atlas to c-Fos labeled brains
+//(GridSpacingSchedule 4 4 4) // Uncomment for creating an atlas template (lowest resolution level)
+//(GridSpacingSchedule 3 3 3) // Uncomment forcreating an atlas template (2nd lowest resolution level)
+//(GridSpacingSchedule 2 2 2) // Uncomment forcreating an atlas template (middle resolution level)
+//(FinalGridSpacingInVoxels 35 35 35) // Uncomment forcreating an atlas template (2nd higest resolution level)
+//(GridSpacingSchedule 1 1 1) // Uncomment forcreating an atlas template (2nd and 1st highest resolution level)
+(HowToCombineTransforms "Compose")
+(WriteTransformParametersEachIteration "false")
+(WriteResultImage "true")
+(CompressResultImage "true")
+(WriteResultImageAfterEachResolution "false")
+(ShowExactMetricValue "false")
+(WriteDiffusionFiles "true")
+
+// *************** Optimizer *************** 
+//Maximum number of iterations in each resolution level:
+(MaximumNumberOfIterations 2500 )
+
+// *************** Parameters for optimization *************** 
+//SP: Param_a in each resolution level. a_k = a/(A+k+1)^alpha
+(SP_a 10000.0 )
+//SP: Param_A in each resolution level. a_k = a/(A+k+1)^alpha
+(SP_A 100.0 )
+//SP: Param_alpha in each resolution level. a_k = a/(A+k+1)^alpha
+(SP_alpha 0.6 )
+
+// *************** Similarity measure *************** 
+(NumberOfHistogramBins 32 )
+(FixedLimitRangeRatio 0.0)
+(MovingLimitRangeRatio 0.0)
+(FixedKernelBSplineOrder 3)
+(MovingKernelBSplineOrder 3)
+(UseFastAndLowMemoryVersion "true")
+
+// *************** Image sampling *************** 
+//Number of spatial samples used to compute the mutual information in each iteration:
+(ImageSampler "RandomCoordinate")
+(FixedImageBSplineInterpolationOrder 1 )
+(UseRandomSampleRegion "true")
+(SampleRegionSize 25.0 25.0 25.0)
+(NumberOfSpatialSamples 10000 )
+(NewSamplesEveryIteration "true")
+(CheckNumberOfSamples "true")
+(MaximumNumberOfSamplingAttempts 10)
+
+// *************** Interpolation and resampling *************** 
+//Order of B-Spline interpolation used in each resolution level:
+(BSplineInterpolationOrder 3)
+//Order of B-Spline interpolation used for applying the final deformation:
+(FinalBSplineInterpolationOrder 3)
+//Default pixel value for pixels that come from outside the picture:
+(DefaultPixelValue 0)
+
+//  *************** Saving  *************** 
+// The pixel type and format of the resulting deformed moving image
+(ResultImagePixelType "float")
+(ResultImageFormat "nii.gz")
