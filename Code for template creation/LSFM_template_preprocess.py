@@ -217,8 +217,8 @@ for i in range(len(sample_id)):
 
 
         # # HISTOGRAM MATCHING
-        reference = bf.readNifti(os.path.join(study_folder_server+r'/nifti',reference_brain_id+'_regi.nii.gz'))
-        clahe_final = skimage.transform.match_histograms(clahe_final.astype('float'), reference.astype('float'), multichannel=False)
+        # reference = bf.readNifti(os.path.join(study_folder_server+r'/nifti',reference_brain_id+'_regi.nii.gz'))
+        # clahe_final = skimage.transform.match_histograms(clahe_final.astype('float'), reference.astype('float'), multichannel=False)
 
         # flip if needed
         if sample_flip[i] == '1':
