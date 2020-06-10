@@ -1,0 +1,82 @@
+//ImageTypes
+(FixedInternalImagePixelType "float")
+(FixedImageDimension 3)
+(MovingInternalImagePixelType "float")
+(MovingImageDimension 3)
+
+//Components
+(Registration "MultiResolutionRegistration")
+(FixedImagePyramid "FixedRecursiveImagePyramid")
+(MovingImagePyramid "MovingRecursiveImagePyramid")
+(Interpolator "BSplineInterpolator")
+(Metric "AdvancedMattesMutualInformation")
+(Optimizer "AdaptiveStochasticGradientDescent")
+(ResampleInterpolator "FinalBSplineInterpolator")
+(Resampler "DefaultResampler")
+(Transform "EulerTransform")
+
+// ********** Pyramid
+
+// Total number of resolutions
+(NumberOfResolutions 3)
+
+
+// ********** Transform
+(AutomaticTransformInitialization "true")
+(HowToCombineTransforms "Compose")
+
+
+// ********** Optimizer
+// Maximum number of iterations in each resolution level:
+(MaximumNumberOfIterations 2000 )
+
+
+//SP: Param_A in each resolution level. a_k = a/(A+k+1)^alpha
+(SP_A 20.0 )
+
+
+// ********** Metric
+
+//Number of grey level bins in each resolution level:
+(NumberOfHistogramBins 32)
+//(FixedLimitRangeRatio 0.0)
+//(MovingLimitRangeRatio 0.0)
+(FixedKernelBSplineOrder 1)
+(MovingKernelBSplineOrder 3)
+
+
+// ********** ImageSampler
+
+//Number of spatial samples used to compute the mutual information in each resolution level:
+(ImageSampler "RandomCoordinate")
+(FixedImageBSplineInterpolationOrder 3)
+(UseRandomSampleRegion "false")
+(NumberOfSpatialSamples 4000 )
+(NewSamplesEveryIteration "true")
+(CheckNumberOfSamples "true")
+(MaximumNumberOfSamplingAttempts 10)
+
+
+// ********** Interpolator and Resampler
+
+//Order of B-Spline interpolation used in each resolution level:
+(BSplineInterpolationOrder 1)
+
+//Order of B-Spline interpolation used for applying the final deformation:
+(FinalBSplineInterpolationOrder 3)
+
+//Default pixel value for pixels that come from outside the picture:
+(DefaultPixelValue 0)
+
+// ********** Several
+
+(WriteTransformParametersEachIteration "false")
+(WriteTransformParametersEachResolution "false")
+(WriteResultImage "true")
+(ShowExactMetricValue "false")
+(ErodeMask "true")
+(UseDifferentiableOverlap "false")
+
+// The pixel type and format of the resulting deformed moving image
+(ResultImagePixelType "float")
+(ResultImageFormat "nii.gz")
