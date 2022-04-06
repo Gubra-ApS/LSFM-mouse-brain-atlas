@@ -1,0 +1,8 @@
+id,parent_id,name,acronym,red,green,blue
+997,,root,root,255,255,255
+68,997,"Frontal pole, layer 1",FRP1,38,143,69
+667,997,"Frontal pole, layer 2/3",FRP2/3,38,143,69
+107,997,"Somatomotor areas, Layer 1",MO1,31,157,90
+219,997,"Somatomotor areas, Layer 2/3",MO2/3,31,157,90
+299,997,"Somatomotor areas, Layer 5",MO5,31,157,90
+644,997,"Somatomotor areas, Layer 6a",MO6a,31,157,90
