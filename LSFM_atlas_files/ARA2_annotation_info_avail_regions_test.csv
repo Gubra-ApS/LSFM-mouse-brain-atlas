@@ -1,0 +1,4 @@
+id,parent_id,name,acronym,red,green,blue
+997,,root,root,255,255,255
+68,184,"Frontal pole, layer 1",FRP1,38,143,69
+667,184,"Frontal pole, layer 2/3",FRP2/3,38,143,69
